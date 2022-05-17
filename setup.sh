@@ -5,7 +5,8 @@ pip --version
 # Without other containers used, venv is recommended
 # to not mesh dependencies when swapping projects
 python3 -m venv venv
-source venv/bin/activate
+# Activate venv
+. venv/bin/activate
 
 # Installing Django and other requirements
 python -m pip install Django
@@ -15,3 +16,5 @@ django-admin --version
 # Install Django REST framework
 python -m pip install djangorestframework
 
+# Deactivate venv after everything is done
+deactivate
