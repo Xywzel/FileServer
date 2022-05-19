@@ -8,6 +8,8 @@ router.register(r'profile', views.ProfileViewSet)
 router.register(r'organization', views.OrganizationViewSet)
 router.register(r'upload', views.UploadViewSet)
 router.register(r'record', views.DownloadRecordViewSet)
+#router.register(r'user', views.UserViewSet)
+
 
 urlpatterns = [
     path('files/', include(router.urls)),

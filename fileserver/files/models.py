@@ -12,7 +12,7 @@ class Organization(models.Model):
 # This extension allows us to add the organizatio
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name="members")
 
 # This handles the actual files
 class Upload(models.Model):

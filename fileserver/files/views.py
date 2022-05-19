@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from django.template import loader
+from django import forms
 from django.http import FileResponse
-
+from django.template import loader
+from django.shortcuts import render
+from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions, status
 
 from files.models import Profile, Organization, Upload, DownloadRecord
-from files.serializers import ProfileSerializer, OrganizationSerializer, UploadSerializer, DownloadRecordSerializer
+from files.serializers import ProfileSerializer, OrganizationSerializer, UploadSerializer, DownloadRecordSerializer, UserSerializer
 
 def download(request, filepath):
     # Get the file requested
@@ -25,8 +26,27 @@ def download(request, filepath):
     response = FileResponse(open(filepath, 'rb'))
     return response
 
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
+
 def upload(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILE)
+        if form.is_valid():
+            pass
+            # Get profile for the user
+            # Get organization for the user
+            # Get the file from the form
+            # Upload.objects.create(profile=profile, organization=organization, data=file)
+    else:
+        form = UploadFileForm()
     return None
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
@@ -48,15 +68,4 @@ class DownloadRecordViewSet(viewsets.ModelViewSet):
     serializer_class = DownloadRecordSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-# Query users
-#@api_view
-#def users(request):
-#    return Responce(None, status=status.HTTP_200_OK)
-
-# Other needed codes
-# HTTP_201_CREATED
-# HTTP_204_NO_CONTENT
-# HTTP_400_BAD_REQUEST
-# HTTP_401_UNAUTHORIZED
-# HTTP_403_FORBIDDEN
-# HTTP_404_NOT_FOUND
+# class 
