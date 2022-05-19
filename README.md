@@ -46,7 +46,8 @@ No need to implement the UI, writing the API endpoints is enough.
 - Users are handled with django auth User model, extended with Profile model.
   Profiles can be queried through */files/profile/*.
 - Organizations can be queried trough */files/organization/*.
-  Organizations track their total download count.
+  Organizations track their total download count and have reverse references to
+  member profiles, uploads and records.
 - Files can be queried trough *files/upload/*, the serialised format include a
   download link for the file in data field. Name is upload, because file is too
   overloaded word in python and django context. Uploads track their total
@@ -58,8 +59,9 @@ No need to implement the UI, writing the API endpoints is enough.
 - The rest API uses hyperlinked references, so other models are referenced by
   a link that fetches information about that model.
 - Currently there is no proper way to upload files, way to do it trough form was
-  left unfinished and I did have time to find a way to do it trough the
-  serialised API. Files can be added trough admin interface *admin/files/upload/add/*.
+  left unfinished and I did not have time to find a way to do it trough the
+  serialised API, though it should be possible.
+  Files can be added trough admin interface *admin/files/upload/add/*.
 - There is no consideration of security or privacy currently in the system as
   all information that is visible is so for all logged in users and can likely
   also be edited trough POSTs to the API.
@@ -71,4 +73,9 @@ No need to implement the UI, writing the API endpoints is enough.
   and tutorials.
 - Trying to get the database play nicely also took quite a while, and is the
   reason, why my clean up script takes quite drastic measures.
+- Major improvement left to do would have been ability to filter DownloadRecords
+  in queries based on profile, file or organization. This would have taken
+  additional views or changes to make current ones take parameters. Though
+  including reverse records for user and organization queries seems to do the
+  same.
 

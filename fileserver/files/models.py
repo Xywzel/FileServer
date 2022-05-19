@@ -18,9 +18,9 @@ class Profile(models.Model):
 class Upload(models.Model):
     name = models.CharField(max_length=255)
     # User that uploaded this file
-    profile = models.ForeignKey(Profile, models.CASCADE)
+    profile = models.ForeignKey(Profile, models.CASCADE, related_name="uploads")
     # Organization that the uploading user belonged to at the time
-    organization = models.ForeignKey(Organization, models.CASCADE)
+    organization = models.ForeignKey(Organization, models.CASCADE, related_name="org_uploads")
     # Total download count of the file
     download_count = models.IntegerField(default=0)
     # The actual file
@@ -30,7 +30,7 @@ class Upload(models.Model):
 # can be stored in the file/user/org models, we can't do per file in
 # user or org as that would require database entry column for each file.
 class DownloadRecord(models.Model):
-    profile = models.ForeignKey(Profile, models.CASCADE)
-    upload = models.ForeignKey(Upload, models.CASCADE)
-    organization = models.ForeignKey(Organization, models.CASCADE)
+    profile = models.ForeignKey(Profile, models.CASCADE, related_name="records")
+    upload = models.ForeignKey(Upload, models.CASCADE, related_name="records")
+    organization = models.ForeignKey(Organization, models.CASCADE, related_name="records")
     timestamp = models.DateTimeField(auto_now_add=True)
