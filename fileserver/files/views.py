@@ -16,7 +16,7 @@ def download(request, filepath):
     profile = Profile.objects.get(user=user)
     org = profile.organization
     # Make a record of this download
-    DownloadRecord.objects.create(upload=file, profile=profile, organization=profile.organizatio)
+    DownloadRecord.objects.create(upload=file, profile=profile, organization=org)
     file.download_count +=1
     file.save()
     org.download_count += 1
