@@ -14,7 +14,7 @@ python fileserver/manage.py migrate
 # Sometimes tables are not done without this
 python fileserver/manage.py migrate --run-syncdb
 # Add superuser
-python fileserver/manage.py createsuperuser
+# python fileserver/manage.py createsuperuser
 # Run some admin shell script to create the basic test data
 python fileserver/manage.py shell --command="import create; create.create()"
 # Close the venv to clean after yourself
